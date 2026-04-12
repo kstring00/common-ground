@@ -1,15 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import {
-  Compass,
-  CheckCircle2,
-  Circle,
-  ChevronDown,
-  ChevronUp,
-  BookOpen,
-  ArrowRight,
-} from 'lucide-react';
+import { ArrowRight, BookOpen, CheckCircle2, ChevronDown, ChevronUp, Circle, Compass } from 'lucide-react';
 import { guidedSteps, resources } from '@/lib/data';
 import { cn } from '@/lib/utils';
 
@@ -17,137 +9,92 @@ export default function NextStepsPage() {
   const [expandedId, setExpandedId] = useState<string>(guidedSteps[0].id);
   const [checked, setChecked] = useState<Record<string, Set<number>>>({});
 
-  function toggleCheck(stepId: string, index: number) {
+  const toggleCheck = (stepId: string, index: number) => {
     setChecked((prev) => {
       const current = new Set(prev[stepId] ?? []);
       if (current.has(index)) current.delete(index);
       else current.add(index);
       return { ...prev, [stepId]: current };
     });
-  }
+  };
 
-  function getProgress(stepId: string, total: number) {
+  const getProgress = (stepId: string, total: number) => {
     const done = checked[stepId]?.size ?? 0;
     return Math.round((done / total) * 100);
-  }
+  };
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
-          Guided Next Steps
-        </h1>
-        <p className="text-gray-500">
-          Clear, structured pathways for wherever you are in your family&apos;s journey.
-          Check items off as you go.
+    <div className="page-shell">
+      <header className="page-header">
+        <h1 className="page-title">Guided Next Steps</h1>
+        <p className="page-description">
+          When everything feels urgent, this gives you one grounded plan at a time. Start with the
+          stage that matches your family right now.
+        </p>
+      </header>
+
+      <div className="soft-panel">
+        <p className="text-sm font-semibold text-brand-muted-700">How to use this page</p>
+        <p className="mt-1 text-sm leading-relaxed text-brand-muted-600">
+          Open one pathway, check off what you&apos;ve done, and use the linked resources when you need
+          details. Progress is saved for this session.
         </p>
       </div>
 
-      {/* Steps */}
       <div className="space-y-4">
         {guidedSteps.map((step) => {
           const isOpen = expandedId === step.id;
           const progress = getProgress(step.id, step.checklist.length);
           const checkedSet = checked[step.id] ?? new Set();
-          const linkedResources = resources.filter((r) =>
-            step.resources.includes(r.id),
-          );
+          const linkedResources = resources.filter((r) => step.resources.includes(r.id));
 
           return (
-            <div
-              key={step.id}
-              className={cn(
-                'card transition-all duration-300',
-                isOpen && 'ring-2 ring-primary/20',
-              )}
-            >
-              {/* Header row */}
-              <button
-                onClick={() => setExpandedId(isOpen ? '' : step.id)}
-                className="w-full flex items-center gap-4 text-left"
-              >
-                <div className="relative w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
-                  <Compass className="w-6 h-6 text-primary" />
-                  {progress > 0 && progress < 100 && (
-                    <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent text-white text-[10px] font-bold flex items-center justify-center">
-                      {progress}%
-                    </div>
-                  )}
-                  {progress === 100 && (
-                    <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-green-500 text-white flex items-center justify-center">
-                      <CheckCircle2 className="w-3.5 h-3.5" />
-                    </div>
-                  )}
-                </div>
-
-                <div className="flex-1 min-w-0">
-                  <span className="text-xs font-semibold text-primary uppercase tracking-wide">
-                    {step.phase}
+            <section key={step.id} className={cn('card p-5 sm:p-6', isOpen && 'ring-2 ring-primary/20')}>
+              <button onClick={() => setExpandedId(isOpen ? '' : step.id)} className="flex w-full items-center gap-4 text-left">
+                <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10">
+                  <Compass className="h-5 w-5 text-primary" />
+                  <span className="absolute -right-1 -top-1 rounded-full bg-white px-1.5 py-0.5 text-[10px] font-bold text-primary ring-1 ring-primary/20">
+                    {progress}%
                   </span>
-                  <h3 className="font-bold text-gray-900 text-base">
-                    {step.title}
-                  </h3>
                 </div>
-
-                {isOpen ? (
-                  <ChevronUp className="w-5 h-5 text-gray-400 shrink-0" />
-                ) : (
-                  <ChevronDown className="w-5 h-5 text-gray-400 shrink-0" />
-                )}
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-primary">{step.phase}</p>
+                  <h3 className="text-base font-semibold text-brand-muted-900 sm:text-lg">{step.title}</h3>
+                  <p className="mt-1 text-sm text-brand-muted-500">
+                    {checkedSet.size}/{step.checklist.length} complete
+                  </p>
+                </div>
+                {isOpen ? <ChevronUp className="h-5 w-5 text-brand-muted-400" /> : <ChevronDown className="h-5 w-5 text-brand-muted-400" />}
               </button>
 
-              {/* Expanded content */}
               {isOpen && (
-                <div className="mt-5 pt-5 border-t border-surface-border space-y-5">
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {step.description}
-                  </p>
+                <div className="mt-5 space-y-5 border-t border-surface-border pt-5">
+                  <p className="text-sm leading-relaxed text-brand-muted-600">{step.description}</p>
 
-                  {/* Progress bar */}
                   <div>
-                    <div className="flex justify-between text-xs text-gray-400 mb-1.5">
+                    <div className="mb-1.5 flex justify-between text-xs text-brand-muted-500">
                       <span>Progress</span>
-                      <span>
-                        {checkedSet.size} / {step.checklist.length} complete
-                      </span>
+                      <span>{checkedSet.size} of {step.checklist.length} steps done</span>
                     </div>
-                    <div className="h-2 rounded-full bg-surface-subtle overflow-hidden">
-                      <div
-                        className="h-full rounded-full bg-primary transition-all duration-500"
-                        style={{ width: `${progress}%` }}
-                      />
+                    <div className="h-2 overflow-hidden rounded-full bg-surface-subtle">
+                      <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${progress}%` }} />
                     </div>
                   </div>
 
-                  {/* Checklist */}
                   <ul className="space-y-2">
                     {step.checklist.map((item, i) => {
                       const isDone = checkedSet.has(i);
                       return (
-                        <li key={i}>
+                        <li key={item}>
                           <button
                             onClick={() => toggleCheck(step.id, i)}
                             className={cn(
-                              'w-full flex items-start gap-3 text-left px-3 py-2.5 rounded-xl transition-colors',
-                              isDone
-                                ? 'bg-green-50'
-                                : 'hover:bg-surface-subtle',
+                              'flex w-full items-start gap-3 rounded-xl border px-3.5 py-3 text-left transition-colors',
+                              isDone ? 'border-green-200 bg-green-50' : 'border-surface-border hover:bg-surface-muted',
                             )}
                           >
-                            {isDone ? (
-                              <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
-                            ) : (
-                              <Circle className="w-5 h-5 text-gray-300 shrink-0 mt-0.5" />
-                            )}
-                            <span
-                              className={cn(
-                                'text-sm',
-                                isDone
-                                  ? 'text-green-700 line-through'
-                                  : 'text-gray-700',
-                              )}
-                            >
+                            {isDone ? <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-green-600" /> : <Circle className="mt-0.5 h-5 w-5 shrink-0 text-brand-muted-300" />}
+                            <span className={cn('text-sm leading-relaxed', isDone ? 'text-green-700 line-through' : 'text-brand-muted-700')}>
                               {item}
                             </span>
                           </button>
@@ -156,28 +103,19 @@ export default function NextStepsPage() {
                     })}
                   </ul>
 
-                  {/* Related resources */}
                   {linkedResources.length > 0 && (
                     <div>
-                      <h4 className="text-sm font-semibold text-gray-600 mb-2 flex items-center gap-1.5">
-                        <BookOpen className="w-4 h-4" />
-                        Related Resources
+                      <h4 className="mb-2 flex items-center gap-1.5 text-sm font-semibold text-brand-muted-700">
+                        <BookOpen className="h-4 w-4" /> Helpful resources
                       </h4>
                       <div className="space-y-2">
                         {linkedResources.map((r) => (
-                          <div
-                            key={r.id}
-                            className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-surface-subtle hover:bg-surface-muted transition-colors cursor-pointer"
-                          >
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-800 truncate">
-                                {r.title}
-                              </p>
-                              <p className="text-xs text-gray-400">
-                                {r.readTime} read
-                              </p>
+                          <div key={r.id} className="flex items-center gap-3 rounded-xl border border-surface-border bg-surface-muted px-3 py-2.5">
+                            <div className="min-w-0 flex-1">
+                              <p className="truncate text-sm font-medium text-brand-muted-800">{r.title}</p>
+                              <p className="text-xs text-brand-muted-500">{r.readTime} read</p>
                             </div>
-                            <ArrowRight className="w-4 h-4 text-gray-400 shrink-0" />
+                            <ArrowRight className="h-4 w-4 shrink-0 text-brand-muted-400" />
                           </div>
                         ))}
                       </div>
@@ -185,7 +123,7 @@ export default function NextStepsPage() {
                   )}
                 </div>
               )}
-            </div>
+            </section>
           );
         })}
       </div>

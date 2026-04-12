@@ -1,16 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Search, BookOpen, Bookmark, Clock, Star } from 'lucide-react';
-import { resources, categoryMeta, type ResourceCategory } from '@/lib/data';
+import { Bookmark, BookOpen, Clock, Search, Star } from 'lucide-react';
+import { categoryMeta, resources, type ResourceCategory } from '@/lib/data';
 import { cn } from '@/lib/utils';
 
 const allCategories: { key: ResourceCategory | 'all'; label: string }[] = [
-  { key: 'all', label: 'All Resources' },
-  ...Object.entries(categoryMeta).map(([key, val]) => ({
-    key: key as ResourceCategory,
-    label: val.label,
-  })),
+  { key: 'all', label: 'All resources' },
+  ...Object.entries(categoryMeta).map(([key, val]) => ({ key: key as ResourceCategory, label: val.label })),
 ];
 
 export default function ResourcesPage() {
@@ -28,152 +25,116 @@ export default function ResourcesPage() {
     return matchesCategory && matchesSearch;
   });
 
-  function toggleSave(id: string) {
+  const toggleSave = (id: string) => {
     setSavedIds((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
       return next;
     });
-  }
+  };
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1">
-          Resource Hub
-        </h1>
-        <p className="text-gray-500">
-          Curated, evidence-based resources for every stage of your family&apos;s journey.
+    <div className="page-shell">
+      <header className="page-header">
+        <h1 className="page-title">Resource Hub</h1>
+        <p className="page-description">
+          A curated library of practical, parent-first guidance. Save what matters and come back when
+          you have time.
         </p>
-      </div>
+      </header>
 
-      {/* Search */}
-      <div className="relative">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-        <input
-          type="text"
-          placeholder="Search articles, guides, topics..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="input-field pl-11"
-        />
-      </div>
+      <section className="rounded-3xl border border-surface-border bg-white p-4 sm:p-5">
+        <div className="grid gap-3 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-muted-400" />
+            <input
+              type="text"
+              placeholder="Search by topic, challenge, or keyword"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="input-field pl-11"
+            />
+          </div>
+          <p className="text-sm text-brand-muted-500">
+            {filtered.length} resource{filtered.length !== 1 ? 's' : ''} shown
+          </p>
+        </div>
 
-      {/* Category filters */}
-      <div className="flex flex-wrap gap-2">
-        {allCategories.map((cat) => (
-          <button
-            key={cat.key}
-            onClick={() => setActiveCategory(cat.key)}
-            className={cn(
-              'px-4 py-2 rounded-xl text-sm font-medium transition-all',
-              activeCategory === cat.key
-                ? 'bg-primary text-white shadow-soft'
-                : 'bg-white text-gray-500 border border-surface-border hover:border-primary/30 hover:text-primary',
-            )}
-          >
-            {cat.key !== 'all' && (
-              <span className="mr-1.5">
-                {categoryMeta[cat.key as ResourceCategory].emoji}
-              </span>
-            )}
-            {cat.label}
-          </button>
-        ))}
-      </div>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {allCategories.map((cat) => (
+            <button
+              key={cat.key}
+              onClick={() => setActiveCategory(cat.key)}
+              className={cn(
+                'rounded-xl border px-3.5 py-2 text-sm font-medium transition-all',
+                activeCategory === cat.key
+                  ? 'border-primary bg-primary text-white shadow-soft'
+                  : 'border-surface-border bg-white text-brand-muted-600 hover:border-primary/30 hover:text-primary',
+              )}
+            >
+              {cat.key !== 'all' && <span className="mr-1.5">{categoryMeta[cat.key as ResourceCategory].emoji}</span>}
+              {cat.label}
+            </button>
+          ))}
+        </div>
+      </section>
 
-      {/* Results count */}
-      <p className="text-sm text-gray-400">
-        Showing {filtered.length} resource{filtered.length !== 1 ? 's' : ''}
-        {activeCategory !== 'all' && ` in ${categoryMeta[activeCategory].label}`}
-      </p>
-
-      {/* Resource cards */}
-      <div className="grid sm:grid-cols-2 gap-5">
+      <section className="grid gap-4 sm:grid-cols-2">
         {filtered.map((resource) => {
           const meta = categoryMeta[resource.category];
           const isSaved = savedIds.has(resource.id);
           return (
-            <div
-              key={resource.id}
-              className="card flex flex-col"
-            >
-              <div className="flex items-start justify-between gap-3 mb-3">
-                <span
-                  className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold border ${meta.color}`}
-                >
+            <article key={resource.id} className="card flex h-full flex-col p-5">
+              <div className="mb-4 flex items-start justify-between gap-3">
+                <span className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-xs font-semibold ${meta.color}`}>
                   {meta.emoji} {meta.label}
                 </span>
                 <button
                   onClick={() => toggleSave(resource.id)}
                   className={cn(
-                    'p-1.5 rounded-lg transition-colors shrink-0',
-                    isSaved
-                      ? 'text-primary bg-primary/10'
-                      : 'text-gray-300 hover:text-primary hover:bg-primary/5',
+                    'rounded-lg p-2 transition-colors',
+                    isSaved ? 'bg-primary/10 text-primary' : 'text-brand-muted-300 hover:bg-primary/5 hover:text-primary',
                   )}
-                  title={isSaved ? 'Saved' : 'Save for later'}
                 >
-                  <Bookmark
-                    className="w-4 h-4"
-                    fill={isSaved ? 'currentColor' : 'none'}
-                  />
+                  <Bookmark className="h-4 w-4" fill={isSaved ? 'currentColor' : 'none'} />
                 </button>
               </div>
 
-              <h3 className="font-bold text-gray-900 leading-snug mb-2 flex-1">
-                {resource.title}
-              </h3>
-              <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-3">
-                {resource.description}
-              </p>
+              <h3 className="text-lg font-semibold leading-snug text-brand-muted-900">{resource.title}</h3>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-brand-muted-600">{resource.description}</p>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-1.5 mb-4">
+              <div className="mt-4 flex flex-wrap gap-1.5">
                 {resource.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-2 py-0.5 rounded-md bg-surface-subtle text-xs text-gray-500"
-                  >
+                  <span key={tag} className="rounded-md border border-surface-border bg-surface-muted px-2 py-1 text-xs text-brand-muted-500">
                     {tag}
                   </span>
                 ))}
               </div>
 
-              {/* Footer */}
-              <div className="flex items-center justify-between text-xs text-gray-400 pt-3 border-t border-surface-border">
-                <div className="flex items-center gap-3">
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5" />
-                    {resource.readTime}
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-surface-border pt-3 text-xs text-brand-muted-500">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="inline-flex items-center gap-1">
+                    <Clock className="h-3.5 w-3.5" /> {resource.readTime}
                   </span>
-                  <span>
-                    Ages: {resource.ageRanges.join(', ')}
-                  </span>
+                  <span>Ages: {resource.ageRanges.join(', ')}</span>
                 </div>
                 {resource.isFeatured && (
-                  <span className="flex items-center gap-1 text-amber-500">
-                    <Star className="w-3.5 h-3.5" fill="currentColor" />
-                    Featured
+                  <span className="inline-flex items-center gap-1 text-amber-600">
+                    <Star className="h-3.5 w-3.5" fill="currentColor" /> Featured
                   </span>
                 )}
               </div>
-            </div>
+            </article>
           );
         })}
-      </div>
+      </section>
 
       {filtered.length === 0 && (
-        <div className="card text-center py-16">
-          <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-gray-400 mb-2">
-            No resources found
-          </h3>
-          <p className="text-gray-400 text-sm">
-            Try adjusting your search or category filter.
-          </p>
+        <div className="card py-14 text-center">
+          <BookOpen className="mx-auto h-10 w-10 text-brand-muted-300" />
+          <h3 className="mt-4 text-lg font-semibold text-brand-muted-600">No resources found</h3>
+          <p className="mt-1 text-sm text-brand-muted-500">Try a broader keyword or a different category filter.</p>
         </div>
       )}
     </div>
