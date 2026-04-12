@@ -62,7 +62,7 @@ export default function DashboardHome() {
           <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white/90">
             <Heart className="h-3.5 w-3.5" fill="currentColor" /> Parent dashboard
           </span>
-          <h1 className="text-2xl font-semibold leading-tight sm:text-3xl">Welcome back. Let&apos;s make today easier.</h1>
+          <h1 className="text-2xl font-semibold leading-tight text-white sm:text-3xl">Welcome back. Let&apos;s make today easier.</h1>
           <p className="max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base">
             This is your home base for resources, support, and next steps. Pick one area to focus on
             right now — you can always come back for the rest.

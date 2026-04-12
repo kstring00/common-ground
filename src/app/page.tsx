@@ -157,7 +157,7 @@ export default function HomePage() {
 
       <section className="px-6 pb-20">
         <div className="mx-auto max-w-5xl rounded-3xl gradient-navy p-10 text-center text-white sm:p-14">
-          <h2 className="text-3xl font-bold sm:text-4xl">Ready to explore Common Ground?</h2>
+          <h2 className="text-3xl font-bold text-white sm:text-4xl">Ready to explore Common Ground?</h2>
           <p className="mx-auto mt-4 max-w-2xl text-white/80 sm:text-lg">
             See the full product demo across dashboard, resources, guided next steps, connection,
             support services, and community.
