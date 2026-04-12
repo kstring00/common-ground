@@ -4,11 +4,13 @@
 
 @layer base {
   :root {
-    --brand-navy: #1a3264;
-    --brand-red: #c8364c;
-    --brand-burgundy: #8c2040;
-    --brand-purple: #3c2264;
-    --brand-warm: #f0cf8e;
+    --brand-navy: #1a2e52;
+    --brand-red: #e2283a;
+    --brand-burgundy: #8b2442;
+    --brand-plum: #703068;
+    --brand-purple: #32175a;
+    --brand-muted: #6e727a;
+    --brand-warm: #c5c2cf;
     --font-display: "Avenir Next", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
     --font-body: "Avenir Next", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
@@ -22,11 +24,11 @@
   }
 
   body {
-    @apply bg-surface text-gray-800;
+    @apply bg-surface text-brand-muted-800;
   }
 
   h1, h2, h3, h4 {
-    @apply font-display tracking-tight text-gray-900;
+    @apply font-display tracking-tight text-brand-muted-900;
   }
 
   p, span, li {
@@ -73,13 +75,13 @@
   .input-field {
     @apply w-full px-4 py-3 rounded-2xl
       bg-surface-muted border border-surface-border
-      text-gray-800 placeholder:text-gray-400
+      text-brand-muted-800 placeholder:text-brand-muted-400
       focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary
       transition-all duration-200;
   }
 
   .label {
-    @apply block text-sm font-semibold text-gray-600 mb-1.5;
+    @apply block text-sm font-semibold text-brand-muted-600 mb-1.5;
   }
 }
 
@@ -89,10 +91,28 @@
   }
 
   .gradient-navy {
-    background: linear-gradient(135deg, #1a3264 0%, #2a4a8a 100%);
+    background: linear-gradient(
+      135deg,
+      #1a2e52 0%,
+      #32175a 42%,
+      #4a1f4a 72%,
+      #1a2e52 100%
+    );
   }
 
   .gradient-warm {
-    background: linear-gradient(135deg, #fefcf9 0%, #fbf1e0 100%);
+    background: linear-gradient(180deg, #faf9fc 0%, #eef1f7 45%, #ffffff 100%);
+  }
+
+  /* Logo heart sweep — use for small brand moments (badges, avatars) */
+  .gradient-brand-hearts {
+    background: linear-gradient(
+      135deg,
+      #e2283a 0%,
+      #8b2442 28%,
+      #703068 55%,
+      #32175a 78%,
+      #1a2e52 100%
+    );
   }
 }

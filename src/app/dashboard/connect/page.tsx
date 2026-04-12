@@ -368,7 +368,7 @@ export default function ConnectPage() {
                 <div className="flex flex-col sm:flex-row gap-4">
                   {/* Avatar + score */}
                   <div className="flex sm:flex-col items-center gap-3 sm:gap-2">
-                    <div className="w-14 h-14 rounded-2xl gradient-navy flex items-center justify-center text-white font-bold text-lg shrink-0">
+                    <div className="w-14 h-14 rounded-2xl gradient-brand-hearts flex items-center justify-center text-white font-bold text-lg shrink-0">
                       {parent.avatar}
                     </div>
                     <div className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-green-50 border border-green-200">
@@ -531,7 +531,7 @@ export default function ConnectPage() {
                 if (!match) return null;
                 return (
                   <div className="card flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl gradient-navy flex items-center justify-center text-white font-bold text-sm">
+                    <div className="w-10 h-10 rounded-xl gradient-brand-hearts flex items-center justify-center text-white font-bold text-sm">
                       {match.avatar}
                     </div>
                     <div>

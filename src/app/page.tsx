@@ -9,6 +9,7 @@ import {
   HandHeart,
   Sparkles,
 } from 'lucide-react';
+import { TexasAbaLogo } from '@/components/brand/TexasAbaLogo';
 
 const features = [
   {
@@ -49,11 +50,13 @@ export default function HomePage() {
       {/* ─── Navigation ─── */}
       <nav className="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur-lg border-b border-surface-border">
         <div className="mx-auto max-w-6xl flex items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl gradient-navy flex items-center justify-center">
-              <Heart className="w-5 h-5 text-white" fill="currentColor" />
-            </div>
-            <span className="font-display font-bold text-xl text-gray-900">
+          <Link
+            href="/"
+            aria-label="Common Ground — Texas ABA Centers, home"
+            className="flex items-center gap-3 min-w-0"
+          >
+            <TexasAbaLogo priority decorative className="h-7 w-auto sm:h-9" />
+            <span className="font-display font-bold text-lg sm:text-xl text-brand-muted-900 leading-tight border-l border-surface-border pl-3 shrink-0">
               Common<span className="text-primary"> Ground</span>
             </span>
           </Link>
@@ -69,6 +72,9 @@ export default function HomePage() {
         <div className="absolute inset-0 gradient-warm opacity-60" />
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white to-transparent" />
         <div className="relative mx-auto max-w-3xl text-center">
+          <div className="flex justify-center mb-8">
+            <TexasAbaLogo className="h-11 w-auto sm:h-14" />
+          </div>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6">
             <Heart className="w-4 h-4" />
             You&apos;re not alone in this
@@ -180,16 +186,19 @@ export default function HomePage() {
       {/* ─── Footer ─── */}
       <footer className="border-t border-surface-border py-10 px-6">
         <div className="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg gradient-navy flex items-center justify-center">
-              <Heart className="w-4 h-4 text-white" fill="currentColor" />
-            </div>
-            <span className="font-display font-bold text-gray-900">
+          <div
+            className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4"
+            role="group"
+            aria-label="Common Ground, Texas ABA Centers"
+          >
+            <TexasAbaLogo decorative className="h-8 w-auto sm:h-9" />
+            <span className="font-display font-bold text-brand-muted-900 text-center sm:text-left sm:border-l sm:border-surface-border sm:pl-4">
               Common<span className="text-primary"> Ground</span>
             </span>
           </div>
-          <p className="text-sm text-gray-400">
-            &copy; {new Date().getFullYear()} Common Ground. A concept by Texas ABA Centers.
+          <p className="text-sm text-brand-muted-400 text-center sm:text-right max-w-md">
+            &copy; {new Date().getFullYear()} Common Ground. A parent support concept by Texas ABA
+            Centers.
           </p>
         </div>
       </footer>

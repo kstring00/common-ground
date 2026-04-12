@@ -4,7 +4,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  Heart,
   LayoutDashboard,
   BookOpen,
   HandHeart,
@@ -14,6 +13,7 @@ import {
   Menu,
   X,
 } from 'lucide-react';
+import { TexasAbaLogo } from '@/components/brand/TexasAbaLogo';
 import { cn } from '@/lib/utils';
 
 const navItems = [
@@ -33,39 +33,44 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
     <>
       {/* Logo */}
       <div className="px-6 py-5 border-b border-surface-border">
-        <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl gradient-navy flex items-center justify-center">
-            <Heart className="w-5 h-5 text-white" fill="currentColor" />
-          </div>
-          <span className="font-display font-bold text-lg text-gray-900">
+        <Link
+          href="/"
+          aria-label="Common Ground — Texas ABA Centers, home"
+          className="block min-w-0 space-y-2"
+        >
+          <TexasAbaLogo decorative className="h-8 w-auto" />
+          <span className="block font-display font-bold text-sm text-brand-muted-900 leading-tight">
             Common<span className="text-primary"> Ground</span>
           </span>
         </Link>
       </div>
 
-      {/* Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-1">
-        {navItems.map((item) => {
-          const isActive =
-            pathname === item.href ||
-            (item.href !== '/dashboard' && pathname.startsWith(item.href));
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setSidebarOpen(false)}
-              className={cn(
-                'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors',
-                isActive
-                  ? 'bg-primary/10 text-primary'
-                  : 'text-gray-500 hover:bg-surface-subtle hover:text-gray-700',
-              )}
-            >
-              <item.icon className="w-5 h-5 shrink-0" />
-              {item.label}
-            </Link>
-          );
-        })}
+      {/* Nav — list markup keeps items stacked even if flex/spacing utilities fail */}
+      <nav className="flex-1 px-3 py-4 min-h-0 overflow-y-auto" aria-label="Dashboard">
+        <ul className="list-none m-0 p-0 flex flex-col gap-1">
+          {navItems.map((item) => {
+            const isActive =
+              pathname === item.href ||
+              (item.href !== '/dashboard' && pathname.startsWith(item.href));
+            return (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  onClick={() => setSidebarOpen(false)}
+                  className={cn(
+                    'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors w-full',
+                    isActive
+                      ? 'bg-primary/10 text-primary'
+                      : 'text-gray-500 hover:bg-surface-subtle hover:text-gray-700',
+                  )}
+                >
+                  <item.icon className="w-5 h-5 shrink-0" />
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </nav>
 
       {/* Demo badge */}
@@ -83,7 +88,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex bg-surface-muted">
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex lg:w-64 flex-col bg-white border-r border-surface-border fixed inset-y-0 left-0 z-30">
+      <aside className="hidden lg:flex lg:flex-col lg:w-64 bg-white border-r border-surface-border fixed inset-y-0 left-0 z-30">
         <SidebarContent />
       </aside>
 
@@ -98,7 +103,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       {/* Mobile drawer */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 w-64 bg-white flex flex-col transition-transform duration-300 lg:hidden',
+          'fixed inset-y-0 left-0 z-50 w-64 bg-white flex flex-col min-h-0 transition-transform duration-300 lg:hidden',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full',
         )}
       >
@@ -121,9 +126,12 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
           >
             <Menu className="w-5 h-5 text-gray-600" />
           </button>
-          <span className="font-display font-bold text-gray-900">
-            Common<span className="text-primary"> Ground</span>
-          </span>
+          <div className="flex items-center gap-3 min-w-0 flex-1">
+            <TexasAbaLogo decorative className="h-7 w-auto shrink-0" />
+            <span className="font-display font-bold text-brand-muted-900 truncate min-w-0">
+              Common<span className="text-primary"> Ground</span>
+            </span>
+          </div>
         </header>
 
         <main className="p-6 sm:p-8 max-w-5xl">{children}</main>

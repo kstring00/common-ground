@@ -16,7 +16,7 @@ const typeConfig: Record<string, { icon: typeof MapPin; color: string; badge: st
   },
   online: {
     icon: Globe,
-    color: 'bg-blue-50 text-blue-600',
+    color: 'bg-brand-plum-50 text-brand-plum-700',
     badge: 'Online Community',
   },
   event: {
