@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-navy: #1a3264;
+    --brand-red: #c8364c;
+    --brand-burgundy: #8c2040;
+    --brand-purple: #3c2264;
+    --brand-warm: #f0cf8e;
+    --font-display: "Avenir Next", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-body: "Avenir Next", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    --radius: 0.75rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-surface text-gray-800;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight text-gray-900;
+  }
+
+  p, span, li {
+    @apply font-body;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+      px-6 py-3 rounded-2xl font-semibold text-sm
+      bg-primary text-primary-foreground
+      hover:bg-primary-dark active:scale-[0.98]
+      transition-all duration-200
+      shadow-soft hover:shadow-card-hover
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+      px-6 py-3 rounded-2xl font-semibold text-sm
+      bg-surface text-primary border-2 border-primary/20
+      hover:border-primary/40 hover:bg-brand-navy-50 active:scale-[0.98]
+      transition-all duration-200
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2
+      px-6 py-3 rounded-2xl font-semibold text-sm
+      bg-accent text-accent-foreground
+      hover:bg-accent-dark active:scale-[0.98]
+      transition-all duration-200
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 focus-visible:ring-offset-2;
+  }
+
+  .card {
+    @apply bg-surface rounded-3xl border border-surface-border
+      shadow-card p-6
+      transition-shadow duration-300
+      hover:shadow-card-hover;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-2xl
+      bg-surface-muted border border-surface-border
+      text-gray-800 placeholder:text-gray-400
+      focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary
+      transition-all duration-200;
+  }
+
+  .label {
+    @apply block text-sm font-semibold text-gray-600 mb-1.5;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gradient-navy {
+    background: linear-gradient(135deg, #1a3264 0%, #2a4a8a 100%);
+  }
+
+  .gradient-warm {
+    background: linear-gradient(135deg, #fefcf9 0%, #fbf1e0 100%);
+  }
+}
