@@ -13,6 +13,7 @@ import {
   Menu,
   X,
   Bell,
+  ShieldCheck,
 } from 'lucide-react';
 import { TexasAbaLogo } from '@/components/brand/TexasAbaLogo';
 import { cn } from '@/lib/utils';
@@ -108,6 +109,20 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             <button className="rounded-xl border border-surface-border bg-white p-2 text-brand-muted-500 hover:text-primary">
               <Bell className="h-4.5 w-4.5" />
             </button>
+          </div>
+          <div className="border-t border-surface-border/70 bg-surface-muted/80">
+            <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-2 px-4 py-2 text-[11px] font-medium text-brand-muted-500 sm:px-6 lg:px-8">
+              <span className="inline-flex items-center gap-1 rounded-full border border-surface-border bg-white px-3 py-1">
+                <ShieldCheck className="h-3.5 w-3.5 text-primary" />
+                Example data clearly marked
+              </span>
+              <span className="rounded-full border border-surface-border bg-white px-3 py-1">
+                Stage-aware guidance
+              </span>
+              <span className="rounded-full border border-surface-border bg-white px-3 py-1">
+                Peer support is not clinical care
+              </span>
+            </div>
           </div>
         </header>
 

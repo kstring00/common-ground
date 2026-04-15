@@ -15,6 +15,7 @@ import {
   Users,
 } from 'lucide-react';
 import { TexasAbaLogo } from '@/components/brand/TexasAbaLogo';
+import { TrustPanel } from '@/components/ui/TrustPanel';
 
 const heroSteps = [
   {
@@ -58,18 +59,21 @@ const riskSignals = [
     value: '50%',
     detail: 'In one UCSF-tracked cohort, about half of mothers of children with ASD showed elevated depressive symptoms over 18 months.',
     response: 'Common Ground lowers noise early with guided next steps, realistic expectations, and fast access to support.',
+    source: 'UCSF maternal depressive symptom reporting',
   },
   {
     title: 'Family breakdown risk',
     value: '23.5%',
     detail: 'One autism-family study reported a 23.5% divorce rate versus 13.8% in comparison families, with elevated risk continuing over time.',
     response: 'We keep the plan shared, paced, and grounded so families are not carrying the entire system alone.',
+    source: 'Autism-family marital outcomes study',
   },
   {
     title: 'Child safety risk',
     value: '31%',
     detail: 'One large disability maltreatment study found a 31% abuse or neglect rate versus 9% for children without disabilities.',
     response: 'We help families reach support before stress turns into disengagement, breakdown, or harm.',
+    source: 'Disability maltreatment prevalence review',
   },
 ];
 
@@ -308,6 +312,10 @@ export default function HomePage() {
                   <p className="text-xs font-semibold uppercase tracking-wide text-white/60">Why this matters for you</p>
                   <p className="mt-2 text-sm leading-relaxed text-white/80">{signal.response}</p>
                 </div>
+                <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
+                  <p className="text-[11px] font-semibold uppercase tracking-wide text-white/55">Evidence basis</p>
+                  <p className="mt-1 text-xs leading-relaxed text-white/70">{signal.source}</p>
+                </div>
               </article>
             ))}
           </div>
@@ -322,6 +330,26 @@ export default function HomePage() {
             You are not expected to know how to navigate this alone. Common Ground exists to help you
             feel steadier, more informed, and better supported from the beginning.
           </div>
+        </div>
+      </section>
+
+      <section className="bg-white px-6 py-20">
+        <div className="mx-auto grid max-w-6xl gap-5 xl:grid-cols-[1.05fr_0.95fr]">
+          <TrustPanel
+            eyebrow="Evidence and guardrails"
+            title="Serious claims should come with clear context"
+            description="When Common Ground shows research-style parent risk signals, it should also show why they matter, what they do not mean, and how the platform responds in a parent-safe way."
+            meta={['Evidence basis visible', 'Directional not diagnostic', 'Reviewed for parent readability']}
+            icon={ShieldCheck}
+          />
+          <TrustPanel
+            eyebrow="What Common Ground is and is not"
+            title="Navigation, support, and routing in one place"
+            description="Common Ground helps parents understand what matters now, connect to support, and build a steadier plan. It does not replace clinical care, school decisions, or emergency response."
+            meta={['Parent-first', 'Calm and practical', 'Built for hard stages']}
+            icon={Compass}
+            tone="muted"
+          />
         </div>
       </section>
 
@@ -374,7 +402,7 @@ export default function HomePage() {
               </p>
             </div>
             <Link href="/dashboard" className="btn-secondary">
-              Explore the full portal <ArrowRight className="h-4 w-4" />
+              See how the full system works <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
@@ -469,10 +497,10 @@ export default function HomePage() {
             that turns a scattered journey into a clearer system.
           </p>
           <Link
-            href="/dashboard"
+            href="/dashboard/next-steps"
             className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-3 font-semibold text-primary shadow-soft transition hover:bg-white/90"
           >
-            Open the portal demo <ArrowRight className="h-4 w-4" />
+            Start building my plan <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </section>
