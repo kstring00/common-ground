@@ -14,7 +14,8 @@ export default function CommunityPage() {
         <h1 className="page-title">Community</h1>
         <p className="page-description">
           Find belonging with families who understand the day-to-day realities. Join local circles,
-          online spaces, and sensory-friendly events.
+          online spaces, and sensory-friendly events that reduce isolation and support steadier
+          long-term engagement.
         </p>
       </header>
 
@@ -27,7 +28,8 @@ export default function CommunityPage() {
             <h2 className="text-base font-semibold text-brand-muted-900">You belong here</h2>
             <p className="mt-1 text-sm leading-relaxed text-brand-muted-600">
               Caregiver isolation is real. Consistent connection with other parents can lower stress
-              and increase confidence in navigating services and school systems.
+              and increase confidence in navigating services, school systems, and hard seasons at
+              home.
             </p>
           </div>
         </div>

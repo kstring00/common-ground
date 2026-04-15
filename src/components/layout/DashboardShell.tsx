@@ -20,7 +20,7 @@ import { cn } from '@/lib/utils';
 const navItems = [
   { href: '/dashboard', label: 'Home', icon: LayoutDashboard },
   { href: '/dashboard/resources', label: 'Resources', icon: BookOpen },
-  { href: '/dashboard/next-steps', label: 'Next Steps', icon: Compass },
+  { href: '/dashboard/next-steps', label: 'Guided Next Steps', icon: Compass },
   { href: '/dashboard/connect', label: 'Connect', icon: Link2 },
   { href: '/dashboard/support', label: 'Support', icon: HandHeart },
   { href: '/dashboard/community', label: 'Community', icon: Users },
@@ -68,8 +68,8 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
 
       <div className="border-t border-surface-border px-4 py-4">
         <div className="rounded-2xl border border-primary/15 bg-primary/5 px-3 py-3 text-center">
-          <p className="text-xs font-semibold text-primary">Demo parent profile</p>
-          <p className="mt-0.5 text-[11px] text-brand-muted-500">Personalized recommendations enabled</p>
+          <p className="text-xs font-semibold text-primary">Demo family navigation plan</p>
+          <p className="mt-0.5 text-[11px] text-brand-muted-500">Guided next steps, milestones, and support cues enabled</p>
         </div>
       </div>
     </>
@@ -103,7 +103,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             </button>
             <div className="min-w-0 flex-1">
               <p className="text-xs font-semibold uppercase tracking-wide text-brand-muted-400">Common Ground</p>
-              <p className="truncate text-sm text-brand-muted-700">A calm place to organize your next steps</p>
+              <p className="truncate text-sm text-brand-muted-700">Parent Navigation System for the diagnosis-to-independence journey</p>
             </div>
             <button className="rounded-xl border border-surface-border bg-white p-2 text-brand-muted-500 hover:text-primary">
               <Bell className="h-4.5 w-4.5" />

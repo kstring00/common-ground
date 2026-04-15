@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Common Ground — Support for Autism Families',
+  title: 'Common Ground — Parent Navigation System',
   description:
-    'A parent support platform helping autism families find community, trusted resources, and partner-based mental health services.',
-  keywords: ['autism', 'ABA', 'parent support', 'caregiver resources', 'mental health'],
+    'A parent navigation system that guides families from diagnosis to independence through structured next steps, support, realistic timelines, and community.',
+  keywords: ['autism', 'parent navigation system', 'caregiver support', 'next steps', 'family support'],
 };
 
 export default function RootLayout({

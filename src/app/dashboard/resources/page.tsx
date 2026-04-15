@@ -37,12 +37,24 @@ export default function ResourcesPage() {
   return (
     <div className="page-shell">
       <header className="page-header">
-        <h1 className="page-title">Resource Hub</h1>
+        <h1 className="page-title">Resources &amp; Support Library</h1>
         <p className="page-description">
-          A curated library of practical, parent-first guidance. Save what matters and come back when
-          you have time.
+          Practical guidance for the real family journey. Use this library to answer the question in
+          front of you, save what matters, and come back when you have bandwidth.
         </p>
       </header>
+
+      <section className="grid gap-4 lg:grid-cols-3">
+        {[
+          'Organized by stage and challenge',
+          'Designed for realistic expectations',
+          'Built to support goal-based decisions',
+        ].map((item) => (
+          <div key={item} className="rounded-3xl border border-surface-border bg-white p-4 text-sm font-medium text-brand-muted-700">
+            {item}
+          </div>
+        ))}
+      </section>
 
       <section className="rounded-3xl border border-surface-border bg-white p-4 sm:p-5">
         <div className="grid gap-3 lg:grid-cols-[1fr_auto] lg:items-center">
@@ -78,6 +90,10 @@ export default function ResourcesPage() {
             </button>
           ))}
         </div>
+        <p className="mt-4 text-sm leading-relaxed text-brand-muted-500">
+          Start with one question, not ten. The goal is clarity and follow-through, not reading
+          everything at once.
+        </p>
       </section>
 
       <section className="grid gap-4 sm:grid-cols-2">

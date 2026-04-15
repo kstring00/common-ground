@@ -94,7 +94,10 @@ export default function ConnectPage() {
     <div className="page-shell">
       <header className="page-header">
         <h1 className="page-title">Connect</h1>
-        <p className="page-description">Safe, moderated peer support with clear boundaries: parent-to-parent guidance, not clinical advice.</p>
+        <p className="page-description">
+          Safe, moderated parent-to-parent support for the moments when you need someone who
+          understands the stage you are in. This is lived guidance, not clinical advice.
+        </p>
       </header>
 
       <div className="rounded-2xl border border-surface-border bg-surface-muted p-4 text-sm text-brand-muted-600">
@@ -126,9 +129,10 @@ export default function ConnectPage() {
           <aside className="soft-panel">
             <h2 className="section-title">How matching works</h2>
             <ul className="mt-3 space-y-3 text-sm text-brand-muted-600">
-              <li>• We match by child age range, diagnosis stage, and your support preferences.</li>
+              <li>• We match by child age range, journey stage, and the support you need most right now.</li>
               <li>• You choose text, calls, or small groups. You can change this anytime.</li>
-              <li>• This is peer support only. For therapy, use Support Services.</li>
+              <li>• This is especially useful when you feel isolated, stuck, or close to burnout.</li>
+              <li>• This is peer support only. For therapy or other services, use Support Services.</li>
             </ul>
           </aside>
 

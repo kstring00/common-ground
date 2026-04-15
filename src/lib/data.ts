@@ -37,6 +37,9 @@ export interface SupportProvider {
 export interface GuidedStep {
   id: string;
   phase: string;
+  timeframe: string;
+  milestone: string;
+  focus: string;
   title: string;
   description: string;
   checklist: string[];
@@ -96,22 +99,22 @@ export const categoryMeta: Record<
 export const resources: Resource[] = [
   {
     id: 'r1',
-    title: 'What Is ABA Therapy? A Parent\'s Complete Guide',
+    title: 'What ABA Can and Cannot Solve in the First 90 Days',
     description:
-      'Learn what Applied Behavior Analysis therapy is, how it works, what to expect during sessions, and how to evaluate if it\'s right for your child.',
+      'A parent-first guide to what ABA looks like early on, what progress usually depends on, and how to set realistic expectations without losing momentum.',
     category: 'therapy-options',
-    tags: ['ABA', 'therapy', 'getting started'],
+    tags: ['ABA', 'therapy', 'realistic expectations'],
     ageRanges: ['0-2', '2-5', '6-12'],
     readTime: '8 min',
     isFeatured: true,
   },
   {
     id: 'r2',
-    title: 'Understanding Your Child\'s Autism Diagnosis',
+    title: 'After the Diagnosis: Your First 30 Days',
     description:
-      'A compassionate walkthrough of what an autism spectrum diagnosis means, common emotions parents experience, and first steps forward.',
+      'A calm walkthrough of what to expect after diagnosis, the emotions many parents experience, and the first decisions that matter most.',
     category: 'understanding-autism',
-    tags: ['diagnosis', 'newly diagnosed', 'emotions'],
+    tags: ['diagnosis', 'first month', 'emotions'],
     ageRanges: ['0-2', '2-5', '6-12', '13-17'],
     readTime: '6 min',
     isFeatured: true,
@@ -129,9 +132,9 @@ export const resources: Resource[] = [
   },
   {
     id: 'r4',
-    title: 'Navigating Your First IEP Meeting',
+    title: 'Navigating Your First IEP Meeting Without Losing the Thread',
     description:
-      'Know your rights, prepare the right questions, and learn how to advocate effectively for your child\'s educational needs.',
+      'Know your rights, prepare the right questions, and turn school planning into a goal-based conversation with clear next steps.',
     category: 'education-iep',
     tags: ['IEP', 'school', 'advocacy'],
     ageRanges: ['2-5', '6-12', '13-17'],
@@ -140,11 +143,11 @@ export const resources: Resource[] = [
   },
   {
     id: 'r5',
-    title: 'Caregiver Burnout: Signs and Solutions',
+    title: 'What to Do When You Are at Your Breaking Point',
     description:
-      'Recognize the warning signs of burnout, understand why it happens, and discover evidence-based strategies to protect your own wellbeing.',
+      'Recognize burnout early, decide what can wait, and use a practical stabilization plan for the days when everything feels too heavy.',
     category: 'caregiver-wellness',
-    tags: ['burnout', 'self-care', 'mental health'],
+    tags: ['burnout', 'breaking point', 'mental health'],
     ageRanges: ['0-2', '2-5', '6-12', '13-17'],
     readTime: '7 min',
     isFeatured: true,
@@ -162,9 +165,9 @@ export const resources: Resource[] = [
   },
   {
     id: 'r7',
-    title: 'Speech Therapy vs. ABA: What\'s the Difference?',
+    title: 'Speech Therapy vs. ABA: How to Sequence Support Around Your Goals',
     description:
-      'Understand how speech-language therapy and ABA therapy differ, overlap, and how they can work together for your child.',
+      'Understand where speech-language therapy and ABA differ, overlap, and how families often prioritize them around immediate goals.',
     category: 'therapy-options',
     tags: ['speech therapy', 'ABA', 'comparison'],
     ageRanges: ['0-2', '2-5', '6-12'],
@@ -173,9 +176,9 @@ export const resources: Resource[] = [
   },
   {
     id: 'r8',
-    title: 'Finding Local Parent Support Groups in Texas',
+    title: 'Finding Parent Support Before You Burn Out',
     description:
-      'A curated directory of active parent support groups across Houston, Austin, Dallas, and San Antonio — both in-person and virtual.',
+      'A curated list of parent groups across Texas, plus guidance on choosing support that feels useful instead of overwhelming.',
     category: 'community',
     tags: ['support groups', 'Texas', 'local'],
     ageRanges: ['0-2', '2-5', '6-12', '13-17'],
@@ -197,7 +200,7 @@ export const resources: Resource[] = [
     id: 'r10',
     title: 'Insurance Coverage for Autism Services in Texas',
     description:
-      'Understand what Texas law requires insurance companies to cover, how to file claims, and what to do if you\'re denied.',
+      'Understand what Texas law requires insurers to cover, how to document calls, and what to do if access stalls or coverage is denied.',
     category: 'education-iep',
     tags: ['insurance', 'Texas', 'coverage', 'legal'],
     ageRanges: ['0-2', '2-5', '6-12', '13-17'],
@@ -215,7 +218,7 @@ export const supportProviders: SupportProvider[] = [
     type: 'therapist',
     specialty: 'Caregiver Counseling & Family Therapy',
     description:
-      'Specializes in supporting parents of children with autism. Offers individual and couples counseling focused on caregiver stress, grief processing, and family dynamics.',
+      'Specializes in supporting parents of children with autism. Offers individual and couples counseling focused on caregiver stress, grief processing, and family stability.',
     location: 'Sugar Land, TX',
     phone: '(832) 555-0142',
     website: 'https://example.com',
@@ -228,7 +231,7 @@ export const supportProviders: SupportProvider[] = [
     type: 'support-group',
     specialty: 'Peer Support & Connection',
     description:
-      'Weekly virtual meetups for parents and caregivers. Share experiences, swap resources, and build lasting friendships with families who get it.',
+      'Weekly virtual meetups for parents and caregivers. Share experiences, swap practical next steps, and talk honestly about hard weeks with families who get it.',
     location: 'Online (Houston-based)',
     meetingSchedule: 'Wednesdays 7:30 PM',
     acceptsInsurance: false,
@@ -240,7 +243,7 @@ export const supportProviders: SupportProvider[] = [
     type: 'hotline',
     specialty: 'Information & Referral',
     description:
-      'Trained specialists available to answer questions, provide referrals to local services, and help navigate the system.',
+      'Trained specialists available to answer questions, provide referrals to local services, and help you decide what to do first when the system feels confusing.',
     location: 'Statewide',
     phone: '(800) 555-0198',
     acceptsInsurance: false,
@@ -252,7 +255,7 @@ export const supportProviders: SupportProvider[] = [
     type: 'respite',
     specialty: 'In-Home & Center-Based Respite',
     description:
-      'Trained respite caregivers who understand autism. Give yourself a break knowing your child is safe, engaged, and cared for.',
+      'Trained respite caregivers who understand autism. Give your family room to reset while your child is safe, engaged, and cared for.',
     location: 'Fort Bend County, TX',
     phone: '(281) 555-0267',
     acceptsInsurance: true,
@@ -264,7 +267,7 @@ export const supportProviders: SupportProvider[] = [
     type: 'advocacy',
     specialty: 'IEP Advocacy & Educational Rights',
     description:
-      'Trained parent advocates who attend IEP meetings with you, help you understand your rights, and ensure your child gets appropriate services.',
+      'Trained parent advocates who attend IEP meetings with you, help you understand your rights, and turn school planning into specific action items.',
     location: 'Statewide',
     phone: '(866) 555-0311',
     website: 'https://example.com',
@@ -279,60 +282,74 @@ export const guidedSteps: GuidedStep[] = [
   {
     id: 'gs1',
     phase: 'Just Diagnosed',
+    timeframe: 'First 30 days',
+    milestone: 'Leave diagnosis with a plan, not just paperwork',
+    focus: 'Stabilize, understand the report, and choose the next 2-3 moves that matter most.',
     title: 'Your child just received a diagnosis',
     description:
-      'Take a breath. Here\'s what to focus on in the first 30 days — no overwhelm, just clear next steps.',
+      'The goal is not to solve everything this month. The goal is to get oriented, protect your bandwidth, and leave the early stage with a realistic plan.',
     checklist: [
-      'Process your emotions — it\'s okay to grieve and feel relief at the same time',
+      'Process your emotions. Relief, grief, confusion, and urgency can all be true at once.',
       'Request a copy of the full evaluation report',
-      'Research ABA therapy providers in your area',
-      'Contact your insurance about autism coverage',
-      'Connect with one other parent who\'s been through this',
+      'Write down the top 3 questions you need answered this week',
+      'Contact your insurance about autism coverage and documentation requirements',
+      'Identify one provider option and one parent support option',
     ],
     resources: ['r2', 'r1', 'r10'],
   },
   {
     id: 'gs2',
     phase: 'Starting Therapy',
+    timeframe: 'Days 30-90',
+    milestone: 'Set expectations, routines, and measurable goals',
+    focus: 'Build a stable start instead of chasing perfect outcomes too early.',
     title: 'Beginning your therapy journey',
     description:
-      'Your child is about to start ABA or other therapies. Here\'s how to prepare and set everyone up for success.',
+      'Therapy setup is a transition for the whole family. Use this phase to set routines, align goals, and define what progress will look like over time.',
     checklist: [
       'Tour the therapy center with your child before the first day',
-      'Prepare a "getting to know my child" sheet for the BCBA',
+      'Prepare a "getting to know my child" sheet for the care team',
       'Establish a consistent drop-off routine',
-      'Set realistic expectations for the first month',
-      'Schedule your own support — you need care too',
+      'Agree on 2-3 functional goals and how progress will be measured',
+      'Set realistic expectations for the first month and document concerns as they come up',
+      'Schedule your own support because family stability affects follow-through',
     ],
     resources: ['r1', 'r7', 'r3'],
   },
   {
     id: 'gs3',
     phase: 'School Transition',
+    timeframe: 'Quarter planning',
+    milestone: 'Turn school meetings into clear milestones and owners',
+    focus: 'Translate evaluations and therapy insight into goals the school team can act on.',
     title: 'Navigating the school system',
     description:
-      'Whether it\'s the first IEP or a school change, here\'s how to advocate effectively for your child\'s education.',
+      'Whether this is your first IEP or a new transition, the objective is clarity: what support is needed, who owns it, and when you will review progress.',
     checklist: [
       'Request an evaluation in writing to the school district',
       'Gather all therapy reports and evaluations',
       'Learn the difference between an IEP and a 504 plan',
-      'Prepare your parent concerns letter',
-      'Consider bringing an advocate to the IEP meeting',
+      'Prepare a parent concerns letter with specific goals and examples',
+      'Define the timeline for follow-up and progress review before the meeting ends',
+      'Consider bringing an advocate if the process feels stuck',
     ],
     resources: ['r4', 'r10'],
   },
   {
     id: 'gs4',
-    phase: 'Taking Care of You',
-    title: 'You can\'t pour from an empty cup',
+    phase: 'Family Sustainability',
+    timeframe: 'Any time you are overloaded',
+    milestone: 'Reduce burnout before it becomes disengagement',
+    focus: 'Use support early so frustration does not turn into shutdown, conflict, or dropout from care.',
+    title: 'What to do when you are frustrated or at your breaking point',
     description:
-      'Caregiver burnout is real. Here\'s how to recognize the signs and build a sustainable support system.',
+      'You do not need to wait until a crisis to ask for help. This phase is about stabilizing the family system so you can keep moving toward long-term goals.',
     checklist: [
-      'Identify your top 3 burnout warning signs',
-      'Schedule at least one hour of personal time this week',
-      'Reach out to a caregiver support group',
-      'Talk to your doctor if you\'re feeling persistently overwhelmed',
-      'Build your "emergency contacts" list of people who can help',
+      'Identify your top 3 warning signs that you are nearing burnout',
+      'Make a "what can wait" list for this week and remove one nonessential demand',
+      'Reach out to a support group, counselor, or respite option',
+      'Create a short list of people you can contact on hard days',
+      'Revisit your plan once you are regulated and decide the next smallest step',
     ],
     resources: ['r5', 'r8'],
   },
@@ -346,7 +363,7 @@ export const communityGroups: CommunityGroup[] = [
     name: 'Fort Bend Autism Families',
     type: 'local',
     description:
-      'Monthly meetups for families in the Fort Bend County area. Playdates, parent nights out, and resource sharing.',
+      'Monthly meetups for families in the Fort Bend County area. Playdates, parent nights out, and practical resource sharing.',
     memberCount: 127,
     meetingSchedule: '2nd Saturday of each month',
     location: 'Sugar Land, TX',
@@ -366,7 +383,7 @@ export const communityGroups: CommunityGroup[] = [
     name: 'Texas ABA Parents Online',
     type: 'online',
     description:
-      'Active online community for Texas families navigating ABA therapy. Ask questions, share wins, and find encouragement.',
+      'Active online community for Texas families navigating services, school, and caregiver stress. Ask questions, share wins, and find encouragement.',
     memberCount: 892,
     meetingSchedule: 'Always open',
     location: 'Online',
@@ -525,7 +542,7 @@ export const peerGroups: PeerGroup[] = [
   {
     id: 'pg1',
     name: 'New Diagnosis Circle',
-    description: 'A safe space for parents in the first year after diagnosis. Guided conversations, shared resources, and zero judgment.',
+    description: 'A safe space for parents in the first year after diagnosis. Guided conversations, realistic expectations, and zero judgment.',
     memberCount: 6,
     maxMembers: 8,
     meetingSchedule: 'Tuesdays 7:00 PM',
@@ -561,7 +578,7 @@ export const peerGroups: PeerGroup[] = [
   {
     id: 'pg4',
     name: 'High Behavior Needs',
-    description: 'For parents navigating significant behavioral challenges. Share strategies, support each other through hard seasons.',
+    description: 'For parents navigating significant behavioral challenges. Share strategies, reset after hard weeks, and keep the family plan moving.',
     memberCount: 5,
     maxMembers: 8,
     meetingSchedule: 'Wednesdays 7:30 PM',

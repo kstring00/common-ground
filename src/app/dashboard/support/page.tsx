@@ -33,9 +33,17 @@ export default function SupportPage() {
         <h1 className="page-title">Support Services</h1>
         <p className="page-description">
           Browse credible support options with clear details on fit, location, insurance, and how to
-          contact each provider.
+          contact each provider when your family needs another layer of help.
         </p>
       </header>
+
+      <section className="rounded-3xl border border-brand-burgundy-100 bg-brand-burgundy-50/50 p-5">
+        <h2 className="section-title">If you are frustrated or close to burnout</h2>
+        <p className="mt-2 text-sm leading-relaxed text-brand-muted-600">
+          Start with the lowest-friction support first: a helpline, respite option, caregiver
+          counselor, or parent support group. You do not have to wait until everything falls apart.
+        </p>
+      </section>
 
       <section className="rounded-3xl border border-surface-border bg-white p-4 sm:p-5">
         <div className="mb-3 flex items-center justify-between">
