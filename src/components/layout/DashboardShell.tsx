@@ -12,8 +12,6 @@ import {
   Link2,
   Menu,
   X,
-  Bell,
-  ShieldCheck,
 } from 'lucide-react';
 import { TexasAbaLogo } from '@/components/brand/TexasAbaLogo';
 import { cn } from '@/lib/utils';
@@ -48,7 +46,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
             return (
               <li key={item.href}>
-                <Link
+                <a
                   href={item.href}
                   onClick={() => setSidebarOpen(false)}
                   className={cn(
@@ -60,7 +58,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
                 >
                   <item.icon className="h-5 w-5 shrink-0" />
                   {item.label}
-                </Link>
+                </a>
               </li>
             );
           })}
@@ -69,8 +67,8 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
 
       <div className="border-t border-surface-border px-4 py-4">
         <div className="rounded-2xl border border-primary/15 bg-primary/5 px-3 py-3 text-center">
-          <p className="text-xs font-semibold text-primary">Demo family navigation plan</p>
-          <p className="mt-0.5 text-[11px] text-brand-muted-500">Guided next steps, milestones, and support cues enabled</p>
+          <p className="text-xs font-semibold text-primary">Start with Guided Next Steps</p>
+          <p className="mt-0.5 text-[11px] text-brand-muted-500">Keep the next move simple</p>
         </div>
       </div>
     </>
@@ -104,24 +102,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             </button>
             <div className="min-w-0 flex-1">
               <p className="text-xs font-semibold uppercase tracking-wide text-brand-muted-400">Common Ground</p>
-              <p className="truncate text-sm text-brand-muted-700">Parent Navigation System for the diagnosis-to-independence journey</p>
-            </div>
-            <button className="rounded-xl border border-surface-border bg-white p-2 text-brand-muted-500 hover:text-primary">
-              <Bell className="h-4.5 w-4.5" />
-            </button>
-          </div>
-          <div className="border-t border-surface-border/70 bg-surface-muted/80">
-            <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-2 px-4 py-2 text-[11px] font-medium text-brand-muted-500 sm:px-6 lg:px-8">
-              <span className="inline-flex items-center gap-1 rounded-full border border-surface-border bg-white px-3 py-1">
-                <ShieldCheck className="h-3.5 w-3.5 text-primary" />
-                Example data clearly marked
-              </span>
-              <span className="rounded-full border border-surface-border bg-white px-3 py-1">
-                Stage-aware guidance
-              </span>
-              <span className="rounded-full border border-surface-border bg-white px-3 py-1">
-                Peer support is not clinical care
-              </span>
+              <p className="truncate text-sm text-brand-muted-700">Parent Navigation System</p>
             </div>
           </div>
         </header>

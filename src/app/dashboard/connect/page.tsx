@@ -149,16 +149,17 @@ export default function ConnectPage() {
       <div className="flex gap-1 overflow-x-auto rounded-2xl bg-surface-subtle p-1">
         {tabs.map((tab) => (
           <button
+            type="button"
             key={tab.key}
             onClick={() => {
-              if (tab.key !== 'intake' && !intakeComplete) return;
+              if (tab.key === 'messages' && !selectedMatch) return;
               setActiveTab(tab.key);
             }}
             className={cn(
               'inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-4 py-2.5 text-sm font-medium transition-all',
               activeTab === tab.key
                 ? 'bg-white text-primary shadow-soft'
-                : tab.key !== 'intake' && !intakeComplete
+                : tab.key === 'messages' && !selectedMatch
                   ? 'cursor-not-allowed text-brand-muted-300'
                   : 'text-brand-muted-600',
             )}
@@ -167,6 +168,19 @@ export default function ConnectPage() {
           </button>
         ))}
       </div>
+
+      {!intakeComplete && (
+        <p className="text-sm text-brand-muted-500">
+          You can look through example matches and groups right away. Finish the short intro when you
+          want Common Ground to tailor them to your stage.
+        </p>
+      )}
+
+      {!selectedMatch && (
+        <p className="text-sm text-brand-muted-500">
+          Messages unlock after you choose a parent match.
+        </p>
+      )}
 
       {activeTab === 'intake' && (
         <div className="grid gap-5 lg:grid-cols-[0.95fr_1.05fr]">
@@ -202,6 +216,7 @@ export default function ConnectPage() {
                 <div className="flex flex-wrap gap-2">
                   {['0-2', '2-5', '6-12', '13-17'].map((age) => (
                     <button
+                      type="button"
                       key={age}
                       onClick={() => setChildAge(age)}
                       className={cn(
@@ -222,6 +237,7 @@ export default function ConnectPage() {
                 <div className="flex flex-wrap gap-2">
                   {(Object.entries(diagnosisStageLabels) as [DiagnosisStage, { label: string }][]).map(([key, value]) => (
                     <button
+                      type="button"
                       key={key}
                       onClick={() => setDiagnosisStage(key)}
                       className={cn(
@@ -242,6 +258,7 @@ export default function ConnectPage() {
                 <div className="flex flex-wrap gap-2">
                   {(Object.entries(struggleLabels) as [Struggle, string][]).map(([key, label]) => (
                     <button
+                      type="button"
                       key={key}
                       onClick={() => toggleStruggle(key)}
                       className={cn(
@@ -266,6 +283,7 @@ export default function ConnectPage() {
                     { key: 'group' as ConnectionPreference, label: 'Small group', icon: Users },
                   ].map((option) => (
                     <button
+                      type="button"
                       key={option.key}
                       onClick={() => toggleConnectionPref(option.key)}
                       className={cn(
@@ -286,6 +304,7 @@ export default function ConnectPage() {
                 <div className="flex gap-2">
                   {['faith-based', 'general'].map((style) => (
                     <button
+                      type="button"
                       key={style}
                       onClick={() => setSupportStyle(style as SupportStyle)}
                       className={cn(
@@ -302,6 +321,7 @@ export default function ConnectPage() {
               </div>
 
               <button
+                type="button"
                 onClick={handleSubmitIntake}
                 disabled={!isIntakeValid}
                 className={cn('btn-primary', !isIntakeValid && 'cursor-not-allowed opacity-50')}
@@ -317,13 +337,20 @@ export default function ConnectPage() {
         <section className="space-y-4">
           <div className="flex items-center justify-between">
             <p className="text-sm text-brand-muted-500">
-              {mockParentMatches.length} example parent matches based on your preferences
+              {intakeComplete
+                ? `${mockParentMatches.length} example parent matches based on your preferences`
+                : `${mockParentMatches.length} example parent matches to preview before personalizing`}
             </p>
-            <button className="inline-flex items-center gap-1 text-sm font-medium text-primary">
+            <button type="button" className="inline-flex items-center gap-1 text-sm font-medium text-primary">
               <RefreshCw className="h-4 w-4" />
               Refresh example matches
             </button>
           </div>
+          {!intakeComplete && (
+            <div className="rounded-2xl border border-primary/15 bg-primary/5 px-4 py-3 text-sm text-brand-muted-600">
+              Finish the short intro to make these matches feel more relevant to your stage and support style.
+            </div>
+          )}
           {mockParentMatches.map((parent) => (
             <article key={parent.id} className="card p-5">
               <div className="flex flex-col gap-4 sm:flex-row">
@@ -375,6 +402,7 @@ export default function ConnectPage() {
 
                   <div className="mt-4 flex flex-wrap gap-2">
                     <button
+                      type="button"
                       onClick={() => {
                         setSelectedMatch(parent.id);
                         setMessages([]);
@@ -385,7 +413,7 @@ export default function ConnectPage() {
                       Send intro message <MessageCircle className="h-4 w-4" />
                     </button>
                     {parent.connectionPreference.includes('call') && (
-                      <button className="btn-secondary px-4 py-2 text-sm">
+                      <button type="button" className="btn-secondary px-4 py-2 text-sm">
                         Request moderator-supported intro <Phone className="h-4 w-4" />
                       </button>
                     )}
@@ -398,8 +426,15 @@ export default function ConnectPage() {
       )}
 
       {activeTab === 'groups' && (
-        <section className="grid gap-4 sm:grid-cols-2">
-          {peerGroups.map((group) => {
+        <section className="space-y-4">
+          {!intakeComplete && (
+            <div className="rounded-2xl border border-primary/15 bg-primary/5 px-4 py-3 text-sm text-brand-muted-600">
+              These are example groups. Finish the short intro if you want Common Ground to narrow
+              the fit based on your stage and support style.
+            </div>
+          )}
+          <div className="grid gap-4 sm:grid-cols-2">
+            {peerGroups.map((group) => {
             const available = group.maxMembers - group.memberCount;
             return (
               <article key={group.id} className="card flex flex-col p-5">
@@ -441,6 +476,7 @@ export default function ConnectPage() {
                   </p>
                 </div>
                 <button
+                  type="button"
                   className={cn('mt-4 text-sm', available > 0 ? 'btn-primary' : 'btn-secondary opacity-60')}
                   disabled={available <= 0}
                 >
@@ -449,7 +485,8 @@ export default function ConnectPage() {
                 </button>
               </article>
             );
-          })}
+            })}
+          </div>
         </section>
       )}
 
@@ -480,6 +517,7 @@ export default function ConnectPage() {
               <div className="flex flex-wrap gap-2">
                 {conversationPrompts.slice(0, 4).map((prompt) => (
                   <button
+                    type="button"
                     key={prompt.id}
                     onClick={() => setMessageText(prompt.text)}
                     className="rounded-xl border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs text-primary"
@@ -519,6 +557,7 @@ export default function ConnectPage() {
                     placeholder="Type your message"
                   />
                   <button
+                    type="button"
                     onClick={handleSendMessage}
                     className={cn(
                       'rounded-2xl px-3',
